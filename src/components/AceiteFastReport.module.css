@@ -1,0 +1,656 @@
+/**
+ * AceiteFastReport.module.css
+ *
+ * Styling for the Aceite Fast Executive Report.
+ *
+ * Design principles:
+ *  - A4 portrait, white background, clean typography.
+ *  - No shadows, no animated transitions, no aggressive colours.
+ *  - Fully printable — all print-specific overrides live in @media print.
+ *  - A single CSS custom-property palette makes theme adjustments simple.
+ */
+
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
+:root {
+  --color-bg: #ffffff;
+  --color-surface: #f8f8f8;
+  --color-border: #d0d0d0;
+  --color-border-light: #e8e8e8;
+
+  --color-text-primary: #1a1a1a;
+  --color-text-secondary: #4a4a4a;
+  --color-text-muted: #6e6e6e;
+
+  --color-accent: #1c3a5e;          /* Deep navy – headings, borders */
+  --color-accent-mid: #2c5282;      /* Mid navy – sub-headings        */
+  --color-accent-light: #e8eef7;    /* Pale blue – row highlights     */
+
+  --color-warning-bg: #fffaf0;
+  --color-warning-border: #c07a00;
+  --color-warning-text: #7a4d00;
+
+  --color-critical-bg: #fff5f5;
+  --color-critical-border: #a03030;
+  --color-critical-text: #6b1e1e;
+
+  --color-ok: #2d6a2d;
+
+  --font-family: 'Segoe UI', Arial, sans-serif;
+  --font-size-base: 13px;
+  --font-size-sm: 11px;
+  --font-size-lg: 15px;
+  --font-size-xl: 18px;
+  --font-size-xxl: 22px;
+
+  --page-max-width: 900px;
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 40px;
+}
+
+/* ============================================================
+   GLOBAL RESET (scoped to report)
+   ============================================================ */
+.reportPage *,
+.reportPage *::before,
+.reportPage *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ============================================================
+   PAGE WRAPPER
+   ============================================================ */
+.reportPage {
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+  background: var(--color-bg);
+  max-width: var(--page-max-width);
+  margin: 0 auto;
+  padding: 48px 56px;
+  line-height: 1.5;
+}
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+.reportHeader {
+  margin-bottom: var(--spacing-xl);
+}
+
+.headerTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--spacing-md);
+}
+
+.companyName {
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.reportMeta {
+  text-align: right;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  line-height: 1.8;
+}
+
+.reportTitle {
+  font-size: var(--font-size-xxl);
+  font-weight: 700;
+  color: var(--color-accent);
+  letter-spacing: -0.02em;
+  margin-bottom: var(--spacing-xs);
+}
+
+.reportSubtitle {
+  font-size: var(--font-size-lg);
+  font-weight: 400;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.headerDivider {
+  border: none;
+  border-top: 2px solid var(--color-accent);
+  margin-top: var(--spacing-md);
+}
+
+/* ============================================================
+   SECTION LAYOUT
+   ============================================================ */
+.section {
+  margin-bottom: var(--spacing-xl);
+}
+
+.sectionTitle {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--color-accent);
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: var(--spacing-sm);
+  margin-bottom: var(--spacing-lg);
+  letter-spacing: -0.01em;
+}
+
+.sectionSubtitle {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  margin-top: calc(-1 * var(--spacing-md));
+  margin-bottom: var(--spacing-lg);
+}
+
+/* ============================================================
+   EXECUTIVE SUMMARY GRID
+   ============================================================ */
+.summaryGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-md);
+}
+
+.summaryCard {
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  padding: var(--spacing-md) var(--spacing-md) var(--spacing-md);
+}
+
+.summaryCardLabel {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: var(--spacing-xs);
+  font-weight: 600;
+}
+
+.summaryCardValue {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--color-accent);
+  line-height: 1.1;
+  margin-bottom: var(--spacing-xs);
+}
+
+.summaryCardNote {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+/* Compliance rate card variant */
+.summaryCardCompliance .summaryCardValue {
+  color: var(--color-ok);
+}
+
+/* ============================================================
+   PROCESS FLOW
+   ============================================================ */
+.processFlow {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+}
+
+.flowStage {
+  flex: 1;
+  border: 1px solid var(--color-border);
+  padding: var(--spacing-md);
+  background: var(--color-surface);
+  position: relative;
+}
+
+.flowStage + .flowStage {
+  border-left: none;
+}
+
+.flowStageNumber {
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: var(--spacing-xs);
+}
+
+.flowStageName {
+  font-size: var(--font-size-base);
+  font-weight: 700;
+  color: var(--color-accent);
+  margin-bottom: var(--spacing-sm);
+  line-height: 1.3;
+}
+
+.flowStageStat {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: 2px;
+}
+
+.flowStageTime {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+/* Arrow connector */
+.flowArrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--spacing-xs);
+  color: var(--color-border);
+  font-size: 18px;
+  flex-shrink: 0;
+  align-self: center;
+}
+
+/* ============================================================
+   PERFORMANCE TABLE
+   ============================================================ */
+.performanceTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-base);
+}
+
+.performanceTable thead tr {
+  background: var(--color-accent);
+  color: #ffffff;
+}
+
+.performanceTable thead th {
+  padding: var(--spacing-sm) var(--spacing-md);
+  text-align: left;
+  font-weight: 600;
+  font-size: var(--font-size-sm);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.performanceTable thead th:not(:first-child) {
+  text-align: right;
+}
+
+.performanceTable tbody tr {
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.performanceTable tbody tr:nth-child(even) {
+  background: var(--color-surface);
+}
+
+.performanceTable tbody td {
+  padding: var(--spacing-sm) var(--spacing-md);
+  color: var(--color-text-primary);
+}
+
+.performanceTable tbody td:not(:first-child) {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.tableBarCell {
+  min-width: 120px;
+}
+
+.tableBar {
+  height: 8px;
+  background: var(--color-border-light);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.tableBarFill {
+  height: 100%;
+  background: var(--color-accent-mid);
+  border-radius: 2px;
+}
+
+.deltaPositive {
+  color: var(--color-ok);
+  font-size: var(--font-size-sm);
+}
+
+.deltaNegative {
+  color: var(--color-critical-text);
+  font-size: var(--font-size-sm);
+}
+
+/* ============================================================
+   SLA ALERTS
+   ============================================================ */
+.alertsIntro {
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-md);
+}
+
+.alertsTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-base);
+}
+
+.alertsTable thead tr {
+  background: var(--color-surface);
+  border-top: 2px solid var(--color-accent);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.alertsTable thead th {
+  padding: var(--spacing-sm) var(--spacing-md);
+  text-align: left;
+  font-weight: 700;
+  font-size: var(--font-size-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+.alertsTable thead th:not(:first-child):not(:nth-child(2)) {
+  text-align: right;
+}
+
+.alertsTable tbody tr {
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.alertsTable tbody td {
+  padding: var(--spacing-sm) var(--spacing-md);
+}
+
+.alertsTable tbody td:not(:first-child):not(:nth-child(2)) {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.severityBadge {
+  display: inline-block;
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 2px 8px;
+  border-radius: 2px;
+  text-transform: uppercase;
+}
+
+.severityWarning {
+  background: var(--color-warning-bg);
+  color: var(--color-warning-text);
+  border: 1px solid var(--color-warning-border);
+}
+
+.severityCritical {
+  background: var(--color-critical-bg);
+  color: var(--color-critical-text);
+  border: 1px solid var(--color-critical-border);
+}
+
+.slaExceeded {
+  font-weight: 700;
+  color: var(--color-critical-text);
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.reportFooter {
+  margin-top: var(--spacing-xl);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--color-border);
+}
+
+.footerGrid {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--spacing-md);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  line-height: 1.8;
+}
+
+.footerDisclaimer {
+  font-style: italic;
+}
+
+.footerMeta {
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* ============================================================
+   LOADING / ERROR STATES
+   ============================================================ */
+.stateContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 320px;
+  gap: var(--spacing-md);
+  color: var(--color-text-muted);
+}
+
+.stateMessage {
+  font-size: var(--font-size-lg);
+}
+
+.errorMessage {
+  color: var(--color-critical-text);
+  font-size: var(--font-size-lg);
+}
+
+.retryButton {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  background: var(--color-accent);
+  color: #fff;
+  border: none;
+  font-size: var(--font-size-base);
+  cursor: pointer;
+  letter-spacing: 0.04em;
+}
+
+.retryButton:hover {
+  background: var(--color-accent-mid);
+}
+
+/* ============================================================
+   CONTROL BAR (filter + print actions) – screen only
+   ============================================================ */
+.controlBar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-lg);
+  padding: var(--spacing-md);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+}
+
+/* ============================================================
+   DATE FILTER BAR
+   ============================================================ */
+.filterBar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.filterPresets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+}
+
+.presetButton {
+  padding: 5px 12px;
+  font-family: var(--font-family);
+  font-size: var(--font-size-sm);
+  background: #fff;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  letter-spacing: 0.03em;
+}
+
+.presetButton:hover:not(:disabled) {
+  background: var(--color-accent-light);
+  border-color: var(--color-accent-mid);
+  color: var(--color-accent);
+}
+
+.presetButtonActive {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #fff;
+}
+
+.presetButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.filterInputs {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+}
+
+.filterLabel {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.filterInput {
+  padding: 4px 8px;
+  font-family: var(--font-family);
+  font-size: var(--font-size-sm);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+  background: #fff;
+  outline: none;
+}
+
+.filterInput:focus {
+  border-color: var(--color-accent-mid);
+}
+
+.filterInput:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.filterApplyButton {
+  padding: 5px 16px;
+  font-family: var(--font-family);
+  font-size: var(--font-size-sm);
+  background: var(--color-accent);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.filterApplyButton:hover:not(:disabled) {
+  background: var(--color-accent-mid);
+}
+
+.filterApplyButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ============================================================
+   REFRESHING BANNER (shown when re-fetching with data present)
+   ============================================================ */
+.refreshingBanner {
+  background: var(--color-accent-light);
+  border: 1px solid var(--color-accent-mid);
+  color: var(--color-accent);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  padding: var(--spacing-sm) var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+  letter-spacing: 0.03em;
+}
+
+/* ============================================================
+   PRINT ACTIONS BAR (screen only)
+   ============================================================ */
+.printBar {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-sm);
+}
+
+.printButton {
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: transparent;
+  border: 1px solid var(--color-accent);
+  color: var(--color-accent);
+  font-size: var(--font-size-sm);
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  font-family: var(--font-family);
+}
+
+.printButton:hover {
+  background: var(--color-accent-light);
+}
+
+/* ============================================================
+   PRINT / PDF
+   ============================================================ */
+@media print {
+  :root {
+    --font-size-base: 11px;
+    --font-size-sm: 9px;
+    --font-size-lg: 13px;
+    --font-size-xl: 15px;
+    --font-size-xxl: 19px;
+  }
+
+  .reportPage {
+    max-width: 100%;
+    padding: 20mm 18mm;
+  }
+
+  .printBar,
+  .controlBar,
+  .refreshingBanner {
+    display: none;
+  }
+
+  .section {
+    page-break-inside: avoid;
+  }
+
+  .performanceTable,
+  .alertsTable {
+    page-break-inside: avoid;
+  }
+
+  .flowStage {
+    page-break-inside: avoid;
+  }
+}
